@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -23,7 +24,9 @@ public class PlayerRespawn : MonoBehaviour
     private List<Vector3> vectorList = new List<Vector3>();
 
     public float Speed = 5f;
-  
+    public static float IndiChiffremort = 0f;
+
+
 
     public void Start()
     {
@@ -33,6 +36,7 @@ public class PlayerRespawn : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(IndiChiffremort);
         TrackLastPositions();
     }
     public void TrackLastPositions()
@@ -49,7 +53,6 @@ public class PlayerRespawn : MonoBehaviour
         }
     }
 
-
     public void RespawnToken()
     {
         if (!IsRespawnable)
@@ -62,7 +65,7 @@ public class PlayerRespawn : MonoBehaviour
     public async void Respawnable()
     {
         if (!IsRespawnable) return;
-        
+        IndicateurDeMort();
         CharacterRender.enabled = false;
         ParticleRender.enabled = true;
         Poussiere.enabled = false;
@@ -82,14 +85,15 @@ public class PlayerRespawn : MonoBehaviour
                 await Task.Delay(5);
             }
         }
-      
+       
+
         IsRespawnable = false;
         ParticleRender.enabled = false;
         CharacterRender.enabled = true;
         Poussiere.enabled = true;
         Movement.canmove = true;
        
-        ResetQueueAfterRespawn();
+        //ResetQueueAfterRespawn();
         Movement.AgainPieged();
 
     }
@@ -104,18 +108,30 @@ public class PlayerRespawn : MonoBehaviour
         }
     }
 
-    void ResetQueueAfterRespawn()
+    public void IndicateurDeMort()
     {
-        TenPosition.Clear();
-        foreach (var position in vectorList)
-        {
-            TenPosition.Enqueue(position);
-        }
-
-        if (TenPosition.Count == 0)
-        {
-            TenPosition.Enqueue(target.position);
-        }
+        IndiChiffremort += 1f;
+        Debug.Log("mort : " + IndiChiffremort);
     }
+
+    public void ResetIndicateurDeMort()
+    {
+        IndiChiffremort = 0f;
+        Debug.Log("Reset mort : " + IndiChiffremort);
+    }
+
+    //void ResetQueueAfterRespawn()
+    //{
+    //    TenPosition.Clear();
+    //    foreach (var position in vectorList)
+    //    {
+    //        TenPosition.Enqueue(position);
+    //    }
+
+    //    if (TenPosition.Count == 0)
+    //    {
+    //        TenPosition.Enqueue(target.position);
+    //    }
+    //}
      
 }
