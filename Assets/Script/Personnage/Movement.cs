@@ -25,7 +25,7 @@ public class Movement : MonoBehaviour
     private bool isTryingToMove = false;
 
     public float DetectionSol = 0.5f;
-    private bool Grounded = false;
+    public bool Grounded = false;
     private bool wasGrounded = false;
     private bool wasPieged = false;
     public bool canmove = true;
@@ -106,6 +106,7 @@ public class Movement : MonoBehaviour
             Grounded = false;
         }
     }
+  
 
     void RaycastCheck()
     {

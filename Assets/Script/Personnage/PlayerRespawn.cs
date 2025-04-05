@@ -49,7 +49,6 @@ public class PlayerRespawn : MonoBehaviour
         }
     }
 
-
     public void RespawnToken()
     {
         if (!IsRespawnable)
@@ -89,7 +88,7 @@ public class PlayerRespawn : MonoBehaviour
         Poussiere.enabled = true;
         Movement.canmove = true;
        
-        ResetQueueAfterRespawn();
+        //ResetQueueAfterRespawn();
         Movement.AgainPieged();
 
     }
@@ -104,18 +103,18 @@ public class PlayerRespawn : MonoBehaviour
         }
     }
 
-    void ResetQueueAfterRespawn()
-    {
-        TenPosition.Clear();
-        foreach (var position in vectorList)
-        {
-            TenPosition.Enqueue(position);
-        }
+    //void ResetQueueAfterRespawn()
+    //{
+    //    TenPosition.Clear();
+    //    foreach (var position in vectorList)
+    //    {
+    //        TenPosition.Enqueue(position);
+    //    }
 
-        if (TenPosition.Count == 0)
-        {
-            TenPosition.Enqueue(target.position);
-        }
-    }
+    //    if (TenPosition.Count == 0)
+    //    {
+    //        TenPosition.Enqueue(target.position);
+    //    }
+    //}
      
 }

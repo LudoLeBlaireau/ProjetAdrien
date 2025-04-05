@@ -8,7 +8,7 @@ public class Dash : MonoBehaviour
     public float dashDuration = 0.2f;
     public float dashCooldown = 1f;
     public float maxSpeed = 5f;
-    bool isSlowingTime = false;
+    public bool isSlowingTime = false;
     public float startSlowTime = -1f;
     public float cooldownSlowDuration = 1f;
     private bool awaitingAutoExit = false;
@@ -59,44 +59,56 @@ public class Dash : MonoBehaviour
 
     void Update()
     {
-        
+
         LocateMouse();
         UpdateLineRenderer();
 
-        if ((Input.GetMouseButton(0) && Time.time >= lastDashTime + dashCooldown) || SeconDash)
-        {
-            if (!isSlowingTime && CanSlowTime == true)
+        if (!movement.Grounded)
+        { 
+            if ((Input.GetMouseButton(0) && Time.time >= lastDashTime + dashCooldown)) // || SeconDash
             {
-                RalentissementDuTemps();
-            }
-        }
-            
-        if (isSlowingTime && Input.GetMouseButtonUp(0))
-        {
-            ResetTime();
-            HandleDash();
-            SeconDash = false;
-           
-        }
+                if (!isSlowingTime && CanSlowTime == true)
+                {
 
-        if (isSlowingTime && awaitingAutoExit == true && (Time.unscaledTime - startSlowTime >= cooldownSlowDuration))
-        {
-            HandleDash();
-            ResetTime();
-            awaitingAutoExit = false;
+                    RalentissementDuTemps();
+                }
+            }
+
+            if (isSlowingTime && Input.GetMouseButtonUp(0))
+            {
+                ResetTime();
+                HandleDash();
+                SeconDash = false;
+
+            }
+
+            if (isSlowingTime && awaitingAutoExit == true && (Time.unscaledTime - startSlowTime >= cooldownSlowDuration))
+            {
+                HandleDash();
+                ResetTime();
+                awaitingAutoExit = false;
+                }
         }
     }
+
+    public void MiniSaut()
+    {
+        rb.AddForce(Vector3.up * movement.jumpForce, ForceMode.Impulse);
+        movement.Grounded = false;
+    }
+
     void ResetTime()
     {
         Physics.gravity = new Vector3(0, -9.81f, 0);
-        isSlowingTime = false;
+         isSlowingTime = false;
         rb.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
-
+       
         startSlowTime = -1f;
         awaitingAutoExit = false;
     }
     void RalentissementDuTemps()
     {
+
         CanSlowTime = false;
         Physics.gravity = Vector3.zero;
         isSlowingTime = true;
@@ -108,6 +120,7 @@ public class Dash : MonoBehaviour
 
     void HandleDash()
     {
+        
         Time.timeScale = 1f;
         if (isDashing) return;
 
@@ -130,7 +143,7 @@ public class Dash : MonoBehaviour
         {
             indicateur.positionnement(finalDashPosition);
         }
-
+        
         lineRenderer.enabled = false;
         StartCoroutine(DashSequence());
     }
