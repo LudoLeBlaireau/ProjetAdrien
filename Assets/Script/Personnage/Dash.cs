@@ -13,7 +13,7 @@ public class Dash : MonoBehaviour
     public float cooldownSlowDuration = 1f;
     private bool awaitingAutoExit = false;
 
-    private bool SeconDash = false;
+    //private bool SeconDash = false;
     public LayerMask Ground;
     private Rigidbody rb;
     public Transform target;
@@ -31,7 +31,7 @@ public class Dash : MonoBehaviour
 
 
     Vector3 originalGravity = Physics.gravity;
-    private bool doubledash = false;
+    //private bool doubledash = false;
 
     [Header("Effets Visuels")]
     public indicateur indicateur;
@@ -78,7 +78,7 @@ public class Dash : MonoBehaviour
             {
                 ResetTime();
                 HandleDash();
-                SeconDash = false;
+               // SeconDash = false;
 
             }
 
@@ -259,7 +259,7 @@ void StopDash()
                    
             if (Input.GetMouseButtonDown(0)) 
             {
-                SeconDash = true;
+                //SeconDash = true;
                 Debug.Log("Clic détecté, arrêt de l'attente !");
                 break; 
             }

@@ -9,8 +9,8 @@ public class Movement : MonoBehaviour
     public LayerMask Ground;
     public LayerMask Piege;
     public LayerMask Crystal;
+    public LayerMask fin;
 
-    [SerializeField] private float smoothVal = 1f;
 
     private Vector3 halfExtents = new Vector3(0.5f, 0.1f, 0.5f); 
     private Rigidbody rb;
@@ -22,7 +22,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float accelerationTime = 1f;
     [SerializeField] private float accelerationTimer = 0f;
     private float currentSpeed = 0f;
-    private bool isTryingToMove = false;
+    //private bool isTryingToMove = false;
 
     public float DetectionSol = 0.5f;
     public bool Grounded = false;
@@ -39,6 +39,7 @@ public class Movement : MonoBehaviour
     public Poussiere poussiere;
     public Crystal crystal;
     public Dash Dash;
+    public ZoneDeFin ZDF;
 
     void Start()
     {
@@ -79,14 +80,14 @@ public class Movement : MonoBehaviour
 
             if (moveDirection.magnitude > 0)
             {
-                isTryingToMove = true;
+                //isTryingToMove = true;
                 accelerationTimer += Time.deltaTime;
                 float t = Mathf.Clamp01(accelerationTimer / accelerationTime);
                 currentSpeed = Mathf.Lerp(0f, moveSpeed, t);
             }
             else
             {
-                isTryingToMove = false;
+                //isTryingToMove = false;
                 accelerationTimer = 0f;
                 currentSpeed = 0f;
             }
@@ -139,16 +140,14 @@ public class Movement : MonoBehaviour
             DéplacementAuSol = false;
         }
 
-        if (Physics.BoxCast(transform.position, halfExtents, -transform.up, out hit, Quaternion.identity, DetectionSol, Piege))
+        if (Physics.BoxCast(transform.position, halfExtents, -transform.up, out hit, Quaternion.identity, DetectionSol, Piege) || Physics.BoxCast(transform.position, halfExtents, transform.up, out hit, Quaternion.identity, DetectionSol, Piege))
         {
             if (wasPieged == false)
             {
                 wasPieged = true;
                 Respawn.RespawnToken();
-                
             }
         }
-            
     }
 
     void OnCollisionEnter(Collision Collision)

@@ -5,13 +5,15 @@ public class ZoneDeFin : MonoBehaviour
     [SerializeField] private AudioSource musicSource;
     public static bool GameIsPaused = false;
     public GameObject finMenuUI;
+    public PlayerRespawn Respawn;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.CompareTag("Player")) // Vérifie que c'est bien le joueur
         {
             Debug.Log("Le joueur a atteint la zone de fin.");
-            Finish();
+            //Finish();
+            ResetMort();
         }
     }
 
@@ -25,5 +27,10 @@ public class ZoneDeFin : MonoBehaviour
         {
             musicSource.Pause();
         }
+    }
+
+    public void ResetMort()
+    {
+        Respawn.ResetIndicateurDeMort();
     }
 }
