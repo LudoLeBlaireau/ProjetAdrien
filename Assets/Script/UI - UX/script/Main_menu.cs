@@ -15,7 +15,7 @@ public class Main_menu : MonoBehaviour
     }
     public void PlayGame3()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +3);
     }
     public void PlayGame4()
     {
