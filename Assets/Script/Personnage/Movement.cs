@@ -18,7 +18,7 @@ public class Movement : MonoBehaviour
     private bool DéplacementAuSol = true;
     private float horizontal;
     private float vertical;
-
+    public TrailRenderer dashTrail;
     [SerializeField] private float accelerationTime = 1f;
     [SerializeField] private float accelerationTimer = 0f;
     private float currentSpeed = 0f;
@@ -31,6 +31,7 @@ public class Movement : MonoBehaviour
     public bool canmove = true;
     public float GroundHeight;
     public bool isTouchingGround;
+    private bool isDashing = false;
 
     public Color detectedColor;
 
@@ -63,6 +64,10 @@ public class Movement : MonoBehaviour
             HandleMovement();
             HandleJump();
             
+        }
+        if (rb.velocity.y < 0 && isDashing)
+        {
+            dashTrail.emitting = false;  // Désactive le trail
         }
     }
 
