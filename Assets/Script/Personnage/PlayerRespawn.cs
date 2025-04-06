@@ -16,7 +16,8 @@ public class PlayerRespawn : MonoBehaviour
     public Camera Maincamera;
     public Movement Movement;
     public Renderer Poussiere;
-      
+    public ParticleSystem Boum;
+
     [Header("Parametre du respawn")]
     bool IsRespawnable = false;
     private Queue<Vector3> TenPosition = new Queue<Vector3>();
@@ -73,6 +74,7 @@ public class PlayerRespawn : MonoBehaviour
     {
         if (!IsRespawnable) return;
         IndicateurDeMort();
+        
         CharacterRender.enabled = false;
         ParticleRender.enabled = true;
         Poussiere.enabled = false;
@@ -127,6 +129,8 @@ public class PlayerRespawn : MonoBehaviour
         IndiChiffremort = 0f;
         Debug.Log("Reset mort : " + IndiChiffremort);
     }
+
+
 
     //void ResetQueueAfterRespawn()
     //{
