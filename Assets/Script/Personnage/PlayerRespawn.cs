@@ -26,6 +26,13 @@ public class PlayerRespawn : MonoBehaviour
     public float Speed = 5f;
     public static float IndiChiffremort = 0f;
 
+    Audio_manager audio_Manager;
+
+    private void Awake()
+    {
+        audio_Manager = GameObject.FindGameObjectWithTag("Audio").GetComponent<Audio_manager>();
+    }
+
 
 
     public void Start()
@@ -70,7 +77,8 @@ public class PlayerRespawn : MonoBehaviour
         ParticleRender.enabled = true;
         Poussiere.enabled = false;
         DeadParticle.position = target.position;
- 
+        audio_Manager.PlaySFX(audio_Manager.death);
+
 
         Movement.canmove = false;
 

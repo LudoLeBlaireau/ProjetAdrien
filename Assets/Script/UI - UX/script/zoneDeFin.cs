@@ -12,7 +12,7 @@ public class ZoneDeFin : MonoBehaviour
         if (collision.CompareTag("Player")) // Vérifie que c'est bien le joueur
         {
             Debug.Log("Le joueur a atteint la zone de fin.");
-            //Finish();
+            Finish();
             ResetMort();
         }
     }

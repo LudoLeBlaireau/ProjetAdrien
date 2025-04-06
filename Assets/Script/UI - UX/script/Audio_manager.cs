@@ -10,8 +10,9 @@ public class Audio_manager : MonoBehaviour
 
     public AudioClip background;
     public AudioClip death;
-    public AudioClip start;
-    public AudioClip particules;
+    public AudioClip jump;
+    public AudioClip dash;
+    public AudioClip fin;
 
     public Slider VolumeMainSlider;
 
