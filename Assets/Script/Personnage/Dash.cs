@@ -4,10 +4,10 @@ using System.Collections;
 public class Dash : MonoBehaviour
 {
     [Header("Dash Settings")]
-    public float dashDistance = 10f;
-    public float dashDuration = 0.2f;
+    public float dashDistance = 5.5f;
+    public float dashDuration = 1.5f;
     public float dashCooldown = 1f;
-    public float maxSpeed = 5f;
+    public float maxSpeed = 9.91f;
     public bool isSlowingTime = false;
     public float startSlowTime = -1f;
     public float cooldownSlowDuration = 1f;
@@ -38,6 +38,13 @@ public class Dash : MonoBehaviour
 
     [Header("Ralentie")]
     float slowMotionFactor = 0.5f;
+
+    Audio_manager audio_Manager;
+
+    private void Awake()
+    {
+        audio_Manager = GameObject.FindGameObjectWithTag("Audio").GetComponent<Audio_manager>();
+    }
 
     void Start()
     {
@@ -134,7 +141,7 @@ public class Dash : MonoBehaviour
         {
             dashDirection = new Vector3(dashDirection.x / 100, 0, 0).normalized;
         }
-
+        audio_Manager.PlaySFX(audio_Manager.dash);
         isDashing = true;
         rb.velocity = Vector3.zero;
         dashTimeRemaining = dashDuration;

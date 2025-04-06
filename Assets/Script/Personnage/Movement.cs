@@ -5,7 +5,7 @@ public class Movement : MonoBehaviour
     [Header("Mouvement et Saut")]
     public float moveSpeed = 10f;
     public float jumpForce = 10.5f;
-    public float gravity = 20f;
+    public float gravity = 10f;
     public LayerMask Ground;
     public LayerMask Piege;
     public LayerMask Crystal;
@@ -41,6 +41,13 @@ public class Movement : MonoBehaviour
     public Dash Dash;
     public ZoneDeFin ZDF;
 
+    Audio_manager audio_Manager;
+
+    private void Awake()
+    {
+        audio_Manager = GameObject.FindGameObjectWithTag("Audio").GetComponent<Audio_manager>();
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -55,6 +62,7 @@ public class Movement : MonoBehaviour
         {
             HandleMovement();
             HandleJump();
+            
         }
     }
 
@@ -105,6 +113,7 @@ public class Movement : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             Grounded = false;
+            audio_Manager.PlaySFX(audio_Manager.jump);
         }
     }
   
